@@ -1,0 +1,21 @@
+services:
+  app:
+    image: ruby
+    volumes:
+     - .:/app
+     - rubygems:/usr/local/bundle
+    ports:
+      - 3000:3000
+    working_dir: /app
+    command: rackup -p 3000 -o 0.0.0.0
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+
+volumes:
+  rubygems:
+    
